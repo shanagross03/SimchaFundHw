@@ -1,0 +1,58 @@
+﻿@using homework_3._4._24.data;
+
+<div b-2ya7vgwtda class="container">
+    <main b-2ya7vgwtda role="main" class="pb-3" style="margin-top: 60px;">
+
+        <div class="header">
+            <h1>
+                Contributors for the @Model.Simcha.Name
+
+            </h1>
+        </div>
+        <div class="table-responsive">
+            <form method="POST" action="/home/updatecontributions">
+                <input type="hidden" name="simchaId" value="@Model.Simcha.Id" />
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Contribute</th>
+                        <th>Name</th>
+                        <th>Balance</th>
+                        <th>Always Include</th>
+                        <th>Amount</th>
+                    </tr>
+                    @foreach (Contributor c in Model.Contributors)
+                    {
+                        <tr class="contribution-row">
+                            <input type="hidden" class="simcha-id" value="@Model.Simcha.Id" />
+                            <input type="hidden" class="contributor-id" value="@c.Id" />
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <div class="form-check form-switch">
+                                        <input style="width: 4rem; height: 2rem;" value="true" class="form-check-input" type="checkbox" @(c.AmountContributedToSimcha > 0 ? "checked" : "")>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@c.FirstName @c.LastName</td>
+                            <td>@c.Balance.ToString("C")</td>
+                            <td style="text-align: center;">
+                                @(c.AlwaysInclude == true ? "yes" : "") 
+                                <i style="font-size:30px" class="bi bi-check"></i>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control amount" value="@(c.AmountContributedToSimcha > 0 ? c.AmountContributedToSimcha  : 5)" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div style="text-align:center;">
+                    <button class="btn-lg btn-danger">Update</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+</div>
+
+@section Scripts {
+    <script src="~/js/simcha-contributions.js"></script>
+}

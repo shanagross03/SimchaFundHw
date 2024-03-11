@@ -1,0 +1,38 @@
+﻿@using homework_3._4._24.data;
+
+<div b-2ya7vgwtda class="container">
+    <main b-2ya7vgwtda role="main" class="pb-3" style="margin-top: 60px;">
+
+        <div class="header">
+            <h1>@Model.Contributor.FirstName @Model.Contributor.LastName</h1>
+            <h3>Current Balance: @Model.Contributor.Balance.ToString("C")</h3>
+        </div>
+
+        <div class="row header">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Action</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                    </tr>
+                    @foreach (Transaction transaction in Model.Transactions)
+                    {
+                        <tr>
+                            <td>
+                                @transaction.Name
+
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @transaction.Date.ToLongDateString()
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @(transaction.Name != "Deposit" ? $"-{transaction.Total.ToString("c")}" : @transaction.Total.ToString("c")) 
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
